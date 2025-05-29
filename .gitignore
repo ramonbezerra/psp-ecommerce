@@ -1,6 +1,7 @@
 # Python - backend folder
 # Ignore Python bytecode files
 /backend/__pycache__/
+/backend/**/__pycache__/
 # Ignore Python egg files
 /backend/*.egg
 # Ignore Python distribution files
