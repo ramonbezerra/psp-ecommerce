@@ -28,7 +28,7 @@ def register():
     
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     USERS[username] = {
-        "password": hashed_password.decode('utf-8'),
+        "password": hashed_password,
         "role": role
     }
 
