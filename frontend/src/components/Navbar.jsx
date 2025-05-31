@@ -11,10 +11,10 @@ const Navbar = () => {
     };
 
     return (
-        <nav>
+        <nav className='bg-gray-600 text-white p-4'>
             <ul>
                 <li><Link to="/">Home</Link></li>
-                {token ? (
+                {token != null ? (
                     <>
                         <li><Link to="/dashboard">Dashboard</Link></li>
                         <li><button type="button" onClick={handleLogout}>Logout</button></li>

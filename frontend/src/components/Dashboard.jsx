@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
+    // const { token, setToken } = useAuth();
     const [userData, setUserData] = useState({message: "Loading..."});
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/hello")
-            .then(res => res.json())
-            .then(data => setUserData(data));
+        axios.get("http://localhost:5000/api/hello")
+            .then(res => setUserData(res.data));
     }, []);
 
     return (
