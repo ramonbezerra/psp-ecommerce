@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from "react";
-
 const Home = () => {
-    const [userData, setUserData] = useState({message: "Loading..."});
-
-    useEffect(() => {
-        fetch("http://localhost:5000/api/hello")
-            .then(res => res.json())
-            .then(data => setUserData(data));
-    }, []);
-
     return (
         <div>
             <h2>Home</h2>
-            <p>{userData?.message}</p>
+            <p>Welcome to the PSP E-commerce platform!</p>
         </div>
     );
 };
