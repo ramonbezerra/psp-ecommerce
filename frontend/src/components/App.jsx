@@ -6,6 +6,7 @@ import ProtectedRoute from '../routes/ProtectedRoute';
 import Home from './Home';
 import Navbar from './Navbar';
 import Login from './Login';
+import Register from './Register';
 import Dashboard from './Dashboard';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
                         <Route element={<ProtectedRoute />}>
                             <Route path="/dashboard" element={<Dashboard />} />
                         </Route>
