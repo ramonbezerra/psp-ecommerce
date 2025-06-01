@@ -13,12 +13,15 @@ const RegisterSchema = Yup.object().shape({
 const Register = () => {
     const navigate = useNavigate();
 
-    const handleRegister = ({ username, password }) => {
+    const handleRegister = ({ username, password }, { setSubmitting }) => {
+        setSubmitting({ isValidating: true });
         axios.post('http://localhost:5000/auth/register', { username, password })
             .then(response => {
-                navigate('/login'); // Redirect to login page after successful registration
+                setSubmitting({ isValidating: false });
+                navigate('/login'); 
             })
             .catch(error => {
+                setSubmitting({ isValidating: false });
                 console.error('Registration failed:', error);
             });
     }

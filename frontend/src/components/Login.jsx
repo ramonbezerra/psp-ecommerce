@@ -15,16 +15,16 @@ const Login = () => {
     const { setToken } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogin = ({ username, password }) => {
-        // setNestedObjectValues({ isValidating: true });
+    const handleLogin = ({ username, password }, { setSubmitting }) => {
+        setSubmitting({ isValidating: true });
         axios.post('http://localhost:5000/auth/login', { username, password })
             .then(response => {
                 setToken(response.data.access_token);
-                // setNestedObjectValues({ isValidating: false });
+                setSubmitting({ isValidating: false });
                 navigate('/dashboard');
             })
             .catch(error => {
-                // setNestedObjectValues({ isValidating: false });
+                setSubmitting({ isValidating: false });
                 console.error('Login failed:', error);
             });
     }
