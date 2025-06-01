@@ -2,6 +2,7 @@
 # Ignore Python bytecode files
 /backend/__pycache__/
 /backend/**/__pycache__/
+backend/api/__pycache__/**.pyc
 # Ignore Python egg files
 /backend/*.egg
 # Ignore Python distribution files
@@ -18,6 +19,9 @@
 /backend/.venv
 # Ignore Python environment variables
 /backend/.env
+# Ignore SQL database files
+/backend/**/*.sqlite3
+/backend/**/*.db
 
 # React - frontend folder
 
