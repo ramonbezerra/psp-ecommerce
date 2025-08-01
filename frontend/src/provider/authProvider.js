@@ -4,25 +4,29 @@ import { useEffect, useState, createContext, useContext, useMemo } from 'react';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [token, setToken_] = useState(localStorage.getItem('token'));
+    const [token, setToken_] = useState(() => {
+        const savedToken = localStorage.getItem('token');
+        return savedToken && savedToken !== 'null' ? savedToken : null;
+    });
 
     const setToken = (newToken) => {
         if (newToken) {
             setToken_(newToken);
             localStorage.setItem('token', newToken);
+            axios.defaults.headers.common.Authorization = `Bearer ${newToken}`;
         } else {
             setToken_(null);
             localStorage.removeItem('token');
+            delete axios.defaults.headers.common.Authorization;
         }
     };
 
     useEffect(() => {
-        console.log("Current token:", token); 
         if (token != null && token !== "null") {
-            axios.defaults.headers.common.Authorization = "Bearer " + token;
+            axios.defaults.headers.common.Authorization = `Bearer ${token}`;
             localStorage.setItem('token', token);
         } else {
-            delete axios.defaults.headers.Authorization;
+            delete axios.defaults.headers.common.Authorization;
             localStorage.removeItem('token');
         }
     }, [token]);

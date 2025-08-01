@@ -7,6 +7,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         setToken(null);
+        localStorage.removeItem('token');
         navigate('/'); // Redirect to home after logout
     };
 

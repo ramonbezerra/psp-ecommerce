@@ -1,5 +1,6 @@
 import { useAuth } from '../provider/authProvider';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Formik, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -14,6 +15,7 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
     const { setToken } = useAuth();
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
     const handleLogin = ({ username, password }, { setSubmitting }) => {
         setSubmitting({ isValidating: true });
@@ -26,6 +28,7 @@ const Login = () => {
             .catch(error => {
                 setSubmitting({ isValidating: false });
                 console.error('Login failed:', error);
+                setError('Invalid username or password');
             });
     }
 
@@ -33,6 +36,7 @@ const Login = () => {
         <div>
             <h2 className='text-2xl'>Login</h2>
             <p>Enter your credentials to log in.</p>
+            {error && <div style={{color: 'red'}}>{error}</div>}
 
             <Formik
                 initialValues={{ username: '', password: '' }}
