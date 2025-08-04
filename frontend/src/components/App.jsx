@@ -8,11 +8,12 @@ import Navbar from './Navbar';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
+import Profile from './Profile';
+import PasswordChange from './PasswordChange';
 
 const App = () => {
     return (
-        <div>
-            <h1 className='text-2xl'>PSP E-commerce</h1>
+        <div className='container-fluid'>
             <AuthProvider>
                 <BrowserRouter>
                     <Navbar />
@@ -22,8 +23,10 @@ const App = () => {
                         <Route path="/register" element={<Register />} />
                         <Route element={<ProtectedRoute />}>
                             <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/change-password" element={<PasswordChange />} />
                         </Route>
-                        <Route path="*" element={<div>NotFound</div>}/>
+                        <Route path="*" element={<div>NotFound</div>} />
                     </Routes>
                 </BrowserRouter>
             </AuthProvider>

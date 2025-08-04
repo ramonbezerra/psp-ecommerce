@@ -12,18 +12,25 @@ const Navbar = () => {
     };
 
     return (
-        <nav className='bg-gray-600 text-white p-4'>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                {token != null ? (
+        <nav className='items-center bg-gray-600 text-gray-100 p-4 mb-4 flex space-x-4'>
+            <ul className='flex flex-400 space-x-4'>
+                <li className='text-2xl text-center'><Link to="/">PSP E-commerce</Link></li>
+                {token != null && (
                     <>
-                        <li><Link to="/dashboard">Dashboard</Link></li>
-                        <li><button type="button" onClick={handleLogout}>Logout</button></li>
+                        <button><Link to="/dashboard">Dashboard</Link></button>
                     </>
-                ) : (
-                    <li><Link to="/login">Login</Link></li>
                 )}
             </ul>
+            <div className='flex-grow'>
+                {token != null ? (
+                    <div className='flex space-x-4'>
+                        <button><Link to="/profile">Profile</Link></button>
+                        <button type="button" onClick={handleLogout}>Logout</button>
+                    </div>
+                ) : (
+                    <button><Link to="/login">Login</Link></button>
+                )}
+            </div>
         </nav>
     );
 }

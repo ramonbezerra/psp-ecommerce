@@ -7,7 +7,7 @@ api_blueprint = Blueprint('api', __name__)
 @jwt_required()
 def hello():
     current_user = get_jwt_identity()
-    if not current_user:
+    if not current_user or current_user is None:
         return jsonify(message='Unauthorized'), 401
     name = current_user if current_user != None else 'Guest'
     return jsonify(message=f'Hello, {name}!')

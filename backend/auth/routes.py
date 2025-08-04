@@ -40,3 +40,19 @@ def login():
     else:
         return jsonify(message="Invalid username or password"), 401 
 
+@auth_blueprint.route('/change-password', methods=['PATCH'])
+@jwt_required()
+def change_password():
+    current_user = get_jwt_identity()
+    data = request.json
+    old_password = data.get('old_password')
+    new_password = data.get('new_password')
+
+    user = User.query.filter_by(username=current_user).first()
+
+    if user and bcrypt.checkpw(old_password.encode('utf-8'), user.password):
+        user.password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+        db.session.commit()
+        return jsonify(message="Password changed successfully"), 200
+    else:
+        return jsonify(message="Invalid old password"), 401
