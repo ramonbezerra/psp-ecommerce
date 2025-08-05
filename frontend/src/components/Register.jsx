@@ -18,7 +18,7 @@ const Register = () => {
         axios.post('http://localhost:5000/auth/register', { username, password })
             .then(response => {
                 setSubmitting({ isValidating: false });
-                navigate('/login'); 
+                navigate('/login');
             })
             .catch(error => {
                 setSubmitting({ isValidating: false });
@@ -27,48 +27,56 @@ const Register = () => {
     }
 
     return (
-        <div>
-            <h2 className='text-2xl'>Register</h2>
-            <p>Enter your credentials to register.</p>
+        <section className="">
+            <div className="">
+                <div className="lg:w-[88%] sm:w-[88%] w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center bg-gray-100">
+                    <div className="items-center text-gray-600 p-4">
+                        <h1 className="lg:text-3xl md:text-2xl text-xl">Register</h1>
+                        <p>Enter your credentials to register.</p>
+                    </div>
 
-            <Formik
-                initialValues={{ username: '', password: '' }}
-                validationSchema={RegisterSchema}
-                onSubmit={handleRegister}>
-                    {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-                        <form onSubmit={handleSubmit}>
-                            <div>
-                                <label htmlFor="username">Username</label><br />
-                                <Field
-                                    type="text"
-                                    name="username"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    placeholder="Enter your username"
-                                />
-                                <ErrorMessage name="username" component="span" className="error" />
-                            </div>
+                    <Formik
+                        initialValues={{ username: '', password: '' }}
+                        validationSchema={RegisterSchema}
+                        onSubmit={handleRegister}>
+                        {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                            <form onSubmit={handleSubmit}>
+                                <div className='mb-4'>
+                                    <label htmlFor="username">Username
+                                    <ErrorMessage name="username" component="span" className="text-red-500 ml-4" />
+                                    <Field
+                                        type="text"
+                                        name="username"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Enter your username"
+                                        className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                    />
+                                    </label>
+                                </div>
 
-                            <div>
-                                <label htmlFor="password">Password</label><br />
-                                <Field
-                                    type="password"
-                                    name="password"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    placeholder="Enter your password"
-                                />
-                                <ErrorMessage name="password" component="span" className="error" />
-                            </div>
-                            <br />
-                            <ErrorMessage name="general" component="span" className="error" />
-                            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
-                        </form>
-                    )}
-                </Formik>
+                                <div className='mb-4'>
+                                    <label htmlFor="password">Password
+                                    <ErrorMessage name="password" component="span" className="text-red-500 ml-4" />
+                                    <Field
+                                        type="password"
+                                        name="password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Enter your password"
+                                        className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                    />
+                                    </label>
+                                </div>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
+                            </form>
+                        )}
+                    </Formik>
 
-            <p className='mt-4'>Already have an account? <a href="/login" className='text-blue-500 hover:text-blue-700'>Login</a></p>
-        </div>
+                    <p className='mt-4'>Already have an account? <a href="/login" className='text-blue-500 hover:text-blue-700'>Login</a></p>
+                </div>
+            </div>
+        </section>
     );
 }
 

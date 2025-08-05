@@ -33,48 +33,55 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <h2 className='text-2xl'>Login</h2>
-            <p>Enter your credentials to log in.</p>
-            {error && <div style={{color: 'red'}}>{error}</div>}
+        <section className="">
+            <div className="">
+                <div className="lg:w-[88%] sm:w-[88%] w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center bg-gray-100">
+                    <div className="items-center text-gray-600 p-4 flex justify-between">
+                        <h1 className="lg:text-3xl md:text-2xl text-xl">Login</h1>
+                    </div>
+                    {error && <div className="text-red-500 mb-2">{error}</div>}
 
-            <Formik
-                initialValues={{ username: '', password: '' }}
-                validationSchema={LoginSchema}
-                onSubmit={handleLogin}>
-                    {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-                        <form onSubmit={handleSubmit}>
-                            <div>
-                                <label htmlFor="username">Username</label><br />
-                                <Field
-                                    type="text"
-                                    name="username"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    placeholder="Enter your username"
-                                />
-                                <ErrorMessage name="username" component="span" className="error" />
-                            </div>
+                    <Formik
+                        initialValues={{ username: '', password: '' }}
+                        validationSchema={LoginSchema}
+                        onSubmit={handleLogin}>
+                        {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-4">
+                                    <label htmlFor="username">Username
+                                        <ErrorMessage name="username" component="span" className="text-red-500 ml-4" />
+                                        <Field
+                                            type="text"
+                                            name="username"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="Enter your username"
+                                            className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                        />
+                                    </label>
+                                </div>
 
-                            <div>
-                                <label htmlFor="password">Password</label><br />
-                                <Field
-                                    type="password"
-                                    name="password"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    placeholder="Enter your password"
-                                />
-                                <ErrorMessage name="password" component="span" className="error" />
-                            </div>
-                            <br />
-                            <ErrorMessage name="general" component="span" className="error" />
-                            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
-                        </form>
-                    )}
-            </Formik>
-            <p className='mt-4'>Don't have an account? <a href="/register" className='text-blue-500 hover:text-blue-700'>Register here</a>.</p>
-        </div>
+                                <div className="mb-4">
+                                    <label htmlFor="password">Password
+                                        <ErrorMessage name="password" component="span" className="text-red-500 ml-4" />
+                                        <Field
+                                            type="password"
+                                            name="password"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="Enter your password"
+                                            className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                        />
+                                    </label>
+                                </div>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
+                            </form>
+                        )}
+                    </Formik>
+                    <p className='mt-4'>Don't have an account? <a href="/register" className='text-blue-500 hover:text-blue-700'>Register here</a>.</p>
+                </div>
+            </div>
+        </section>
     );
 }
 

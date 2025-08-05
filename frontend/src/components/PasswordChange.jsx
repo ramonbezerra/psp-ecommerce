@@ -41,6 +41,7 @@ const PasswordChange = () => {
                         <form onSubmit={handleSubmit}>
                             <div className='mb-4'>
                                 <label htmlFor="password">Current Password
+                                    <ErrorMessage name="old_password" component="div" className="text-red-500 ml-4" />
                                     <Field
                                         type="password" 
                                         id="old_password" 
@@ -48,20 +49,20 @@ const PasswordChange = () => {
                                         onChange={handleChange} 
                                         onBlur={handleBlur} 
                                         className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200" />
-                                    <ErrorMessage name="old_password" component="div" className="error" />
                                 </label>
                             </div>
                             <div className='mb-4'>
                                 <label htmlFor="password">New Password
+                                    <ErrorMessage name="new_password" component="div" className="text-red-500 ml-4" />
                                     <Field type="password" id="new_password" name="new_password" onChange={handleChange} onBlur={handleBlur} 
                                         className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200" />
-                                    <ErrorMessage name="new_password" component="div" className="error" />
                                 </label>
                             </div>
                             <div className='mb-4'>
                                 <label htmlFor="password">Confirm New Password
+                                    <ErrorMessage name="repeat_password" component="div" className="text-red-500 ml-4" />
                                     <Field type="password" id="repeat_password" name="repeat_password" onChange={handleChange} onBlur={handleBlur} 
-                                    className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200" />                                    <ErrorMessage name="repeat_password" component="div" className="error" />
+                                    className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200" />                                    
                                 </label>
                             </div>
                             <button type="submit" disabled={isSubmitting} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Change Password</button>
