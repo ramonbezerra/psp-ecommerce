@@ -36,7 +36,7 @@ const PasswordChange = () => {
                     <h1 className="lg:text-3xl md:text-2xl text-xl">Change Password</h1>
                 </div>
                 {error && <div className="text-red-500 mb-2">{error}</div>}
-                <Formik initialValues={{ password: '' }} validationSchema={null} onSubmit={handlePasswordChange}>
+                {token && <Formik validationSchema={null} onSubmit={handlePasswordChange}>
                     {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                         <form onSubmit={handleSubmit}>
                             <div className='mb-4'>
@@ -67,7 +67,7 @@ const PasswordChange = () => {
                             <button type="submit" disabled={isSubmitting} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Change Password</button>
                         </form>
                     )}
-                </Formik>
+                </Formik>}
             </div>
         </div>
     </section >

@@ -19,13 +19,7 @@ const Dashboard = () => {
         setLoading(true);
         setError(null);
         
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-        
-        axios.get("http://localhost:5000/api/hello", config)
+        axios.get("http://localhost:5000/api/profile")
             .then(res => {
                 setUserData(res.data);
                 setLoading(false);
@@ -40,7 +34,7 @@ const Dashboard = () => {
     return (
         <div>
             <h2>Dashboard</h2>
-            <p style={{color: error ? 'red' : 'black'}}>{userData?.message || error || 'Loading...'}</p>
+            <p style={{color: error ? 'red' : 'black'}}>{userData?.username || error || 'Loading...'}</p>
         </div>
     );
 };

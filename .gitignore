@@ -1,7 +1,7 @@
 # Python - backend folder
 # Ignore Python bytecode files
 /backend/__pycache__/
-/backend/**/__pycache__/
+/backend/**/__pycache__/*.pyc
 # Ignore Python egg files
 /backend/*.egg
 # Ignore Python distribution files
@@ -12,6 +12,7 @@
 /backend/*.log
 # Ignore Python test cache files
 /backend/.pytest_cache/
+.pytest_cache/
 # Ignore Python coverage files
 /backend/.coverage
 # Ignore Python virtual environment
@@ -21,6 +22,7 @@
 # Ignore SQL database files
 /backend/**/*.sqlite3
 /backend/**/*.db
+/backend/migrations/
 
 # React - frontend folder
 
@@ -44,3 +46,5 @@
 /frontend/yarn.lock
 # Ignore ESLint cache files
 /frontend/.eslintcache
+
+.vscode/
