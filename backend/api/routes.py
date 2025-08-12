@@ -61,3 +61,18 @@ def update_profile():
 
     db.session.commit()
     return jsonify(message="Profile updated successfully"), 200
+
+@api_blueprint.route('/admin', methods=['GET'])
+@jwt_required()
+def get_administrators_list():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(username=current_user).first()
+    if user:
+        admins = User.query.filter_by(role='admin').all()
+        data = {"admins": [{
+            "isActive": admin.is_active,
+            "username": admin.username, 
+            "email": admin.email, 
+            "fullname": admin.full_name} for admin in admins]}
+        return jsonify(data), 200
+    return jsonify(message="User not found"), 404

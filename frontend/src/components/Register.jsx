@@ -4,9 +4,12 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const RegisterSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Email is required'),
     username: Yup.string()
         .required('Username is required'),
-    password: Yup.string().min(4, 'Password must be at least 4 characters').max(120, 'Password must not exceed 120 characters')
+    password: Yup.string()
+        .min(4, 'Password must be at least 4 characters')
+        .max(120, 'Password must not exceed 120 characters')
         .required('Password is required')
 });
 
@@ -36,11 +39,25 @@ const Register = () => {
                     </div>
 
                     <Formik
-                        initialValues={{ username: '', password: '' }}
+                        initialValues={{ username: '', password: '', email: '' }}
                         validationSchema={RegisterSchema}
                         onSubmit={handleRegister}>
                         {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                             <form onSubmit={handleSubmit}>
+                                <div className='mb-4'>
+                                    <label htmlFor="email">Email
+                                    <ErrorMessage name="email" component="span" className="text-red-500 ml-4" />
+                                    <Field
+                                        type="email"
+                                        name="email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Enter your email"
+                                        className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                    />
+                                    </label>
+                                </div>
+                                
                                 <div className='mb-4'>
                                     <label htmlFor="username">Username
                                     <ErrorMessage name="username" component="span" className="text-red-500 ml-4" />
@@ -49,7 +66,7 @@ const Register = () => {
                                         name="username"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        placeholder="Enter your username"
+                                        placeholder="Choose an username"
                                         className="form-control block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
                                     />
                                     </label>
@@ -68,6 +85,8 @@ const Register = () => {
                                     />
                                     </label>
                                 </div>
+
+                                
                                 <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
                             </form>
                         )}
