@@ -30,7 +30,7 @@ def login():
 
     user = User.query.filter_by(username=username).first()
 
-    if user and bcrypt.checkpw(password.encode('utf-8'), user.password):
+    if user and user.is_active and bcrypt.checkpw(password.encode('utf-8'), user.password):
         access_token = create_access_token(identity=username, additional_claims={"role": user.role, "is_active": user.is_active})
         refresh_token = create_refresh_token(identity=username, additional_claims={"role": user.role, "is_active": user.is_active})
         
@@ -39,7 +39,14 @@ def login():
         
         return jsonify(access_token=access_token, refresh_token=refresh_token), 200
     else:
-        return jsonify(message="Invalid username or password"), 401 
+        if not user:
+            return jsonify(message="User not found"), 404
+        
+        if not user.is_active:
+            return jsonify(message="User is inactive"), 401
+        
+        if not bcrypt.checkpw(password.encode('utf-8'), user.password):
+            return jsonify(message="Invalid username or password"), 401 
 
 @auth_blueprint.route('/change-password', methods=['PATCH'])
 @jwt_required()
