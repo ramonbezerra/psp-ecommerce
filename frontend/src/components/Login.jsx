@@ -28,7 +28,8 @@ const Login = () => {
             .catch(error => {
                 setSubmitting({ isValidating: false });
                 console.error('Login failed:', error);
-                setError('Invalid username or password');
+                if (error.code === 'ERR_NETWORK') setError('Network error');
+                else if (error.code == 'ERR_BAD_REQUEST') setError('Invalid username or password');
             });
     }
 

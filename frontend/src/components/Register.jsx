@@ -16,9 +16,9 @@ const RegisterSchema = Yup.object().shape({
 const Register = () => {
     const navigate = useNavigate();
 
-    const handleRegister = ({ username, password }, { setSubmitting }) => {
+    const handleRegister = ({ email, username, password }, { setSubmitting }) => {
         setSubmitting({ isValidating: true });
-        axios.post('http://localhost:5000/auth/register', { username, password })
+        axios.post('http://localhost:5000/auth/register', { email, username, password })
             .then(response => {
                 setSubmitting({ isValidating: false });
                 navigate('/login');
@@ -87,7 +87,7 @@ const Register = () => {
                                 </div>
 
                                 
-                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Register</button>
                             </form>
                         )}
                     </Formik>
