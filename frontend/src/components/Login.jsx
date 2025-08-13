@@ -27,8 +27,8 @@ const Login = () => {
             })
             .catch(error => {
                 setSubmitting({ isValidating: false });
-                console.error('Login failed:', error);
-                setError('Invalid username or password');
+                if (error.code === 'ERR_NETWORK') setError('Network error');
+                else setError(error.response.data.message);
             });
     }
 
@@ -42,6 +42,7 @@ const Login = () => {
                     {error && <div className="text-red-500 mb-2">{error}</div>}
 
                     <Formik
+                        enableReinitialize
                         initialValues={{ username: '', password: '' }}
                         validationSchema={LoginSchema}
                         onSubmit={handleLogin}>

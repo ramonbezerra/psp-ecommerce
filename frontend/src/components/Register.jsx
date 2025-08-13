@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
@@ -8,24 +9,27 @@ const RegisterSchema = Yup.object().shape({
     username: Yup.string()
         .required('Username is required'),
     password: Yup.string()
-        .min(4, 'Password must be at least 4 characters')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'Password must contain at least one big letter, one small letter, one special character and one number')    
+        .min(8, 'Password must be at least 8 characters')
         .max(120, 'Password must not exceed 120 characters')
         .required('Password is required')
 });
 
 const Register = () => {
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
-    const handleRegister = ({ username, password }, { setSubmitting }) => {
+    const handleRegister = ({ email, username, password }, { setSubmitting }) => {
         setSubmitting({ isValidating: true });
-        axios.post('http://localhost:5000/auth/register', { username, password })
+        axios.post('http://localhost:5000/auth/register', { email, username, password })
             .then(response => {
                 setSubmitting({ isValidating: false });
                 navigate('/login');
             })
             .catch(error => {
                 setSubmitting({ isValidating: false });
-                console.error('Registration failed:', error);
+                if (error.code === 'ERR_NETWORK') setError('Network error');
+                else setError(error.response.data.message);
             });
     }
 
@@ -37,6 +41,7 @@ const Register = () => {
                         <h1 className="lg:text-3xl md:text-2xl text-xl">Register</h1>
                         <p>Enter your credentials to register.</p>
                     </div>
+                    {error && <div className="text-red-500 mb-2">{error}</div>}
 
                     <Formik
                         initialValues={{ username: '', password: '', email: '' }}
@@ -87,7 +92,7 @@ const Register = () => {
                                 </div>
 
                                 
-                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Login</button>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" disabled={isSubmitting}>Register</button>
                             </form>
                         )}
                     </Formik>
