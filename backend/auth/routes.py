@@ -10,13 +10,14 @@ def register():
     data = request.json
     username = data.get('username')
     password = data.get('password')
+    email = data.get('email')
     role = data.get('role', 'user')
 
     if User.query.filter_by(username=username).first():
         return jsonify(message="User already exists"), 409
     
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    db.session.add(User(username=username, password=hashed_password, role=role))
+    db.session.add(User(email=email, username=username, password=hashed_password, role=role))
     db.session.commit()
 
     return jsonify(message="User registered successfully"), 201
@@ -30,8 +31,8 @@ def login():
     user = User.query.filter_by(username=username).first()
 
     if user and bcrypt.checkpw(password.encode('utf-8'), user.password):
-        access_token = create_access_token(identity=username, additional_claims={"role": user.role})
-        refresh_token = create_refresh_token(identity=username, additional_claims={"role": user.role})
+        access_token = create_access_token(identity=username, additional_claims={"role": user.role, "is_active": user.is_active})
+        refresh_token = create_refresh_token(identity=username, additional_claims={"role": user.role, "is_active": user.is_active})
         
         user.last_login = db.func.now()
         db.session.commit()

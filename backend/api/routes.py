@@ -76,3 +76,17 @@ def get_administrators_list():
             "fullname": admin.full_name} for admin in admins]}
         return jsonify(data), 200
     return jsonify(message="User not found"), 404
+
+@api_blueprint.route('/admin/<username>', methods=['PATCH'])
+@jwt_required()
+def enable_or_disable_admin(username):
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(username=current_user).first()
+    if user:
+        admin = User.query.filter_by(username=username).first()
+        if admin:
+            admin.is_active = not admin.is_active
+            db.session.commit()
+            return jsonify(message="Admin updated successfully"), 204
+        return jsonify(message="Admin not found"), 404
+    return jsonify(message="User not found"), 404

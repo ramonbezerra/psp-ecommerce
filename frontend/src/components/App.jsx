@@ -9,6 +9,7 @@ import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
+import AdmList from './AdmList';
 import PasswordChange from './PasswordChange';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
                         <Route element={<ProtectedRoute />}>
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/profile" element={<Profile />} />
+                            <Route path="/admin-list" element={<AdmList />} />
                             <Route path="/change-password" element={<PasswordChange />} />
                         </Route>
                         <Route path="*" element={<div>NotFound</div>} />
